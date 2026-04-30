@@ -1,0 +1,761 @@
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Carlos Jaramillo – Consulta Gratuita | Protocolo Bicarbonato</title>
+  <meta name="description" content="Descubre los 3 ingredientes del truco del bicarbonato calibrado para tu caso específico.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1a7a5e;
+      --green-light: #22a876;
+      --green-bg: #e8f5f0;
+      --amber: #f0a800;
+      --amber-dark: #d49100;
+      --text-dark: #1a2332;
+      --text-mid: #4a5568;
+      --text-light: #718096;
+      --bg: #eef1f5;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-radius: 14px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 52px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 100;
+    }
+    .header-doctor { display: flex; align-items: center; gap: 10px; }
+    .header-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      object-fit: cover;
+    }
+    .header-info .title { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+    .header-info .subtitle { font-size: 11px; color: var(--text-light); }
+    .header-progress { font-size: 13px; font-weight: 600; color: var(--text-light); }
+    .back-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-light); font-size: 20px; padding: 4px 8px;
+      display: none; align-items: center;
+    }
+    .back-btn.visible { display: flex; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar-wrap {
+      position: fixed; top: 52px; left: 0; right: 0;
+      height: 4px; background: #d1d5db; z-index: 99;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1a7a5e, #22a876);
+      transition: width 0.4s ease;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      flex: 1; display: flex; align-items: center;
+      justify-content: center; padding: 80px 20px 120px;
+    }
+
+    /* ── SCREENS ── */
+    .screen { display: none; width: 100%; max-width: 600px; animation: fadeIn 0.35s ease; }
+    .screen.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── INTRO ── */
+    .intro-screen { text-align: center; }
+    .intro-avatar-wrap { position: relative; display: inline-block; margin-bottom: 20px; }
+    .intro-avatar { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--green); object-fit: cover; }
+    .intro-avatar-badge {
+      position: absolute; bottom: 2px; right: 2px;
+      width: 24px; height: 24px; background: var(--green);
+      border-radius: 50%; border: 2px solid #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: #fff;
+    }
+    .bubble-deco { position: absolute; border-radius: 50%; background: rgba(34,168,118,0.15); }
+    .bubble-deco.b1 { width: 10px; height: 10px; top: -4px; right: -8px; }
+    .bubble-deco.b2 { width: 16px; height: 16px; bottom: 8px; left: -12px; }
+    .intro-name { font-size: 18px; font-weight: 700; }
+    .intro-verified { color: var(--green); font-size: 16px; }
+    .intro-ratings { font-size: 13px; color: var(--text-light); margin-top: 4px; }
+    .intro-ratings span { color: #f59e0b; }
+    .intro-headline { font-size: 26px; font-weight: 800; line-height: 1.25; margin: 22px 0 12px; }
+    .intro-sub { font-size: 15px; color: var(--text-mid); line-height: 1.6; }
+    .intro-sub strong { color: var(--text-dark); }
+    .intro-divider { color: var(--green); font-size: 18px; margin: 18px 0; }
+    .intro-guarantee { font-size: 13px; color: var(--green); margin-bottom: 20px; }
+    .intro-fine { font-size: 12px; color: var(--text-light); margin-top: 10px; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: block; width: 100%; padding: 18px;
+      background: var(--green); color: #fff;
+      font-size: 15px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      border: none; border-radius: var(--border-radius);
+      cursor: pointer; transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { background: #155e47; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-amber { background: var(--amber); color: var(--text-dark); }
+    .btn-amber:hover { background: var(--amber-dark); }
+
+    /* ── QUESTION ── */
+    .question-text {
+      font-size: 24px; font-weight: 800; line-height: 1.25;
+      text-align: center; margin-bottom: 10px;
+    }
+    .question-subtitle {
+      font-size: 14px; color: var(--text-light);
+      text-align: center; line-height: 1.5; margin-bottom: 28px;
+    }
+
+    /* single-choice */
+    .answer-list { display: flex; flex-direction: column; gap: 12px; }
+    .answer-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; background: var(--card-bg);
+      border: 1.5px solid var(--border); border-radius: var(--border-radius);
+      cursor: pointer; font-size: 15px; font-weight: 500;
+      color: var(--text-dark); text-align: left; line-height: 1.4;
+      transition: border-color 0.2s, background 0.2s, transform 0.1s;
+    }
+    .answer-btn:hover { border-color: var(--green-light); background: #f0faf6; }
+    .answer-btn:active { transform: scale(0.99); }
+    .answer-btn.selected { border-color: var(--green); background: #eef9f4; }
+    .answer-btn .chevron { color: #c0c8d2; font-size: 16px; flex-shrink: 0; margin-left: 10px; }
+
+    /* multi-choice */
+    .multi-answer-btn {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 20px; background: var(--card-bg);
+      border: 1.5px solid var(--border); border-radius: var(--border-radius);
+      cursor: pointer; font-size: 15px; font-weight: 500;
+      color: var(--text-dark); text-align: left; line-height: 1.4;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .multi-answer-btn.selected { border-color: var(--green); background: #eef9f4; }
+    .radio-circle {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid #c0c8d2;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: border-color 0.2s, background 0.2s;
+    }
+    .multi-answer-btn.selected .radio-circle { border-color: var(--green); background: var(--green); }
+    .radio-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; display: none; }
+    .multi-answer-btn.selected .radio-dot { display: block; }
+
+    /* continuar */
+    .continuar-wrap { margin-top: 22px; }
+    .btn-continuar {
+      display: block; width: 100%; padding: 17px;
+      background: #c0c8d2; color: #fff; font-size: 15px; font-weight: 700;
+      border: none; border-radius: var(--border-radius); cursor: default;
+      transition: background 0.25s;
+    }
+    .btn-continuar.enabled { background: var(--green); cursor: pointer; }
+    .btn-continuar.enabled:hover { background: #155e47; }
+
+    /* ── SLIDER ── */
+    .slider-value { text-align: center; font-size: 54px; font-weight: 800; margin-bottom: 4px; }
+    .slider-value span { font-size: 28px; font-weight: 600; color: var(--text-mid); }
+    .slider-controls { display: flex; align-items: center; gap: 14px; margin: 18px 0 8px; }
+    .slider-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 2px solid var(--border); background: var(--card-bg);
+      font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-dark); transition: border-color 0.2s; flex-shrink: 0;
+    }
+    .slider-btn:hover { border-color: var(--green); }
+    input[type=range] {
+      flex: 1; -webkit-appearance: none; height: 8px; border-radius: 4px;
+      background: linear-gradient(90deg, var(--amber) var(--pct, 40%), #d1d5db var(--pct, 40%));
+      outline: none; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 22px; height: 22px;
+      border-radius: 50%; background: var(--amber);
+      border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: grab;
+    }
+    .slider-hint { font-size: 12px; color: var(--text-light); text-align: center; margin-top: 4px; }
+    .slider-note { font-size: 14px; color: var(--text-mid); text-align: center; margin-top: 14px; line-height: 1.5; }
+
+    /* ── DR POPUP ── */
+    .dr-popup-overlay {
+      position: fixed; inset: 0;
+      background: rgba(15,25,40,0.45);
+      z-index: 300;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .dr-popup-overlay.show { opacity: 1; pointer-events: all; }
+
+    /* popup card — filho do overlay, centralizado pelo flex */
+    .dr-popup {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 460px;
+      transform: scale(0.88);
+      opacity: 0;
+      transition: transform 0.32s cubic-bezier(0.34, 1.15, 0.64, 1), opacity 0.25s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .dr-popup-overlay.show .dr-popup {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .dr-popup-handle { display: none; }
+    .dr-popup-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    }
+    .dr-popup-avatar {
+      width: 50px; height: 50px; border-radius: 50%;
+      border: 2px solid var(--green); object-fit: cover; flex-shrink: 0;
+    }
+    .dr-popup-name { font-size: 15px; font-weight: 700; color: var(--text-dark); }
+    .dr-popup-badge {
+      display: inline-block; margin-top: 4px;
+      background: #e8f5f0; color: var(--green);
+      font-size: 11px; font-weight: 600; padding: 2px 10px;
+      border-radius: 20px; border: 1px solid #b2dfd0;
+    }
+    .dr-popup-message {
+      font-size: 15px; color: var(--text-mid); line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .dr-popup-message strong { color: var(--text-dark); }
+    .dr-popup-btn {
+      display: block; width: 100%; padding: 16px;
+      background: var(--green); color: #fff;
+      font-size: 15px; font-weight: 700;
+      border: none; border-radius: 12px; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .dr-popup-btn:hover { background: #155e47; }
+
+    /* ── INSIGHT ── */
+    .insight-screen { text-align: center; max-width: 580px; }
+    .insight-headline { font-size: 24px; font-weight: 800; line-height: 1.3; margin-bottom: 8px; }
+    .insight-highlight { color: var(--green); font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 22px; }
+    .insight-card {
+      background: var(--card-bg); border-radius: var(--border-radius);
+      border-left: 4px solid #e53e3e; padding: 20px 22px;
+      text-align: left; margin-bottom: 18px;
+    }
+    .insight-card p {
+      font-size: 14px; color: var(--text-mid); line-height: 1.7;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .insight-card p:last-child { border-bottom: none; padding-bottom: 0; }
+    .insight-card p strong { color: var(--text-dark); }
+    .insight-card p em { font-style: italic; }
+    .insight-conclusion {
+      background: #eef9f4; border-radius: var(--border-radius);
+      padding: 18px 20px; margin-bottom: 24px;
+    }
+    .insight-conclusion p { font-size: 15px; font-weight: 700; color: var(--green); line-height: 1.5; margin-bottom: 6px; }
+    .insight-conclusion .sub { font-size: 14px; font-weight: 400; color: var(--text-mid); }
+
+    /* ── LOADING ── */
+    .loading-screen { text-align: center; }
+    .loading-headline { font-size: 22px; font-weight: 800; margin-bottom: 30px; }
+    .loading-bar-wrap { background: var(--border); border-radius: 8px; height: 10px; overflow: hidden; margin-bottom: 28px; }
+    .loading-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      border-radius: 8px; width: 0%; transition: width 0.6s ease;
+    }
+    .loading-steps { list-style: none; text-align: left; }
+    .loading-step {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--text-light); opacity: 0.4;
+      transition: opacity 0.4s, color 0.4s;
+    }
+    .loading-step.active { opacity: 1; color: var(--text-dark); }
+    .loading-step .step-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    @media (max-width: 480px) {
+      .question-text { font-size: 20px; }
+      .intro-headline { font-size: 22px; }
+      .slider-value { font-size: 44px; }
+      .dr-popup { padding: 24px 18px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <button class="back-btn" id="backBtn" onclick="goBack()" aria-label="Volver">←</button>
+  <div class="header-doctor">
+    <img class="header-avatar" src="images/dr-carlos.png" alt="Dr. Carlos Jaramillo">
+    <div class="header-info">
+      <div class="title">Analizando síntomas</div>
+      <div class="subtitle">Dr. Carlos Jaramillo</div>
+    </div>
+  </div>
+  <div class="header-progress" id="headerProgress"></div>
+</header>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+</div>
+
+<!-- DR. POPUP: overlay é o bg escuro + flex container; popup card fica dentro -->
+<div class="dr-popup-overlay" id="drOverlay" onclick="confirmPopup()">
+  <div class="dr-popup" id="drPopup" onclick="event.stopPropagation()">
+    <div class="dr-popup-handle"></div>
+    <div class="dr-popup-header">
+      <img class="dr-popup-avatar" src="images/dr-carlos.png" alt="Dr. Carlos Jaramillo">
+      <div>
+        <div class="dr-popup-name">Dr. Carlos Jaramillo</div>
+        <div class="dr-popup-badge">Médico Especialista</div>
+      </div>
+    </div>
+    <p class="dr-popup-message" id="drPopupMessage"></p>
+    <button class="dr-popup-btn" onclick="confirmPopup()">Continuar →</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- INTRO -->
+  <div class="screen intro-screen active" id="screen-intro">
+    <div class="intro-avatar-wrap">
+      <div class="bubble-deco b1"></div>
+      <div class="bubble-deco b2"></div>
+      <img class="intro-avatar" src="images/dr-carlos.png" alt="Dr. Carlos Jaramillo">
+      <div class="intro-avatar-badge">✓</div>
+    </div>
+    <div class="intro-name">Dr. Carlos Jaramillo <span class="intro-verified">✓</span></div>
+    <div class="intro-ratings">150 mil valoraciones · 4.8/5 <span>★</span></div>
+    <h1 class="intro-headline">Descubre los 3 ingredientes del truco<br>del bicarbonato</h1>
+    <p class="intro-sub">
+      Recibirás la preparación exacta calibrada para <strong>tu peso</strong>, <strong>tu edad</strong> y <strong>tu nivel de bloqueo</strong>.
+    </p>
+    <div class="intro-divider">✦</div>
+    <div class="intro-guarantee">Protocolo personalizado del Dr. Carlos, gratis y confidencial</div>
+    <button class="btn-primary" onclick="startQuiz()">RECIBIR MI PREPARACIÓN PERSONALIZADA →</button>
+    <div class="intro-fine">⏱ 1 minuto  ·  🔒 Solo tú lo verás  ·  ✓ 100% gratis</div>
+  </div>
+
+  <!-- Q1 — multi-select (sin popup) -->
+  <div class="screen" id="screen-q1">
+    <h2 class="question-text">¿Cuál de estos problemas describe<br>tu situación actual?</h2>
+    <p class="question-subtitle">Selecciona todo lo que aplica. Esto determina qué fase del protocolo priorizamos para ti.</p>
+    <div class="answer-list" id="q1-answers">
+      <button class="multi-answer-btn" data-val="erecciones" onclick="toggleMulti(this,'q1')">
+        <div class="radio-circle"><div class="radio-dot"></div></div>
+        Erecciones que se van antes de terminar
+      </button>
+      <button class="multi-answer-btn" data-val="firmeza" onclick="toggleMulti(this,'q1')">
+        <div class="radio-circle"><div class="radio-dot"></div></div>
+        Dificultad para lograr la firmeza que tenía antes
+      </button>
+      <button class="multi-answer-btn" data-val="tamano" onclick="toggleMulti(this,'q1')">
+        <div class="radio-circle"><div class="radio-dot"></div></div>
+        Pérdida de tamaño o grosor comparado con años atrás
+      </button>
+      <button class="multi-answer-btn" data-val="deseo" onclick="toggleMulti(this,'q1')">
+        <div class="radio-circle"><div class="radio-dot"></div></div>
+        Menos deseo o energía sexual que antes
+      </button>
+    </div>
+    <div class="continuar-wrap">
+      <button class="btn-continuar" id="q1-continuar" onclick="nextFromMulti('q1','q2',1)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="screen" id="screen-q2">
+    <h2 class="question-text">¿Hace cuánto tiempo empezaste a notar que algo había cambiado?</h2>
+    <p class="question-subtitle">Esto nos ayuda a estimar el nivel de acumulación en tus arterias penianas ⏰</p>
+    <div class="answer-list">
+      <button class="answer-btn" onclick="selectWithPopup(this,'q2','menos6m','q3',2,'Este tiempo es suficiente para que las placas se consoliden. Tu protocolo priorizará la disolución en la primera semana.')">
+        Menos de 6 meses, empezó de forma gradual <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q2','6m2a','q3',2,'Con este tiempo de evolución, las placas ya tienen varias capas. Tu protocolo usará los ingredientes en secuencia para ir disolviendo capa por capa.')">
+        Entre 6 meses y 2 años, fue empeorando poco a poco <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q2','2a5a','q3',2,'Dos a cinco años de acumulación indica un <strong>bloqueo moderado-avanzado</strong>. El segundo ingrediente es clave para tu caso, es el que penetra las capas más antiguas.')">
+        Entre 2 y 5 años, ya intenté algunas cosas sin resultado <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q2','mas5a','q3',2,'Más de 5 años es exactamente para quién diseñé la fase 3 del protocolo. No te desanimes, la acumulación antigua <strong>sí se puede disolver</strong>, solo necesita la proporción correcta.')">
+        Más de 5 años, perdí la esperanza de que mejore <span class="chevron">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="screen" id="screen-q3">
+    <h2 class="question-text">Cuando el problema ocurre, ¿qué pasa por tu mente en ese momento?</h2>
+    <p class="question-subtitle"></p>
+    <div class="answer-list">
+      <button class="answer-btn" onclick="selectWithPopup(this,'q3','verguenza','q4',3,'Ese sentimiento de estar fallando a tu pareja <strong>no es tu culpa</strong>, es una respuesta fisiológica al bloqueo vascular. Cuando el flujo se restaure, esa sensación desaparece con él.')">
+        Vergüenza, siento que le estoy fallando a ella <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q3','miedo','q4',3,'Entiendo ese miedo. Pero lo que estás viviendo <strong>tiene causa y tiene solución</strong>. No es el fin, es una señal de que las arterias necesitan limpieza. Exactamente lo que haremos.')">
+        Miedo, pienso que esto ya no va a mejorar <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q3','frustracion','q4',3,'Tu cuerpo sabe que puede responder. La frustración que sientes es la prueba de que <strong>el problema no viene de ti, sino de las arterias obstruidas</strong>. El protocolo va a corregir eso.')">
+        Frustración, sé que mi cuerpo debería poder responder <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q3','desconexion','q4',3,'Este alejamiento es uno de los efectos más dañinos, y de los más ignorados. Cuando el problema físico se resuelve, <strong>la conexión con tu pareja se recupera naturalmente</strong>. Primero el cuerpo.')">
+        Desconexión, me estoy alejando de mi pareja por esto <span class="chevron">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="screen" id="screen-q4">
+    <h2 class="question-text">¿Cuántas veces por semana piensas en este problema, incluso cuando no estás en la cama?</h2>
+    <p class="question-subtitle">El estrés crónico relacionado con esto acelera la acumulación de toxinas vasculares.</p>
+    <div class="answer-list">
+      <button class="answer-btn" onclick="selectWithPopup(this,'q4','casinunca','q5',4,'Bien. El estrés crónico también afecta el flujo, pero en tu caso aún no es un factor dominante. Tu protocolo puede enfocarse directamente en las placas.')">
+        Casi nunca, solo cuando se presenta la situación <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q4','aveces','q5',4,'Ese nivel de preocupación libera cortisol de forma constante, lo que <strong>reduce el óxido nítrico</strong> disponible para tus arterias. El tercer ingrediente del protocolo contrarresta exactamente eso.')">
+        Algunas veces, está en el fondo de mi mente <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q4','frecuente','q5',4,'La ansiedad anticipatoria que describes <strong>empeora el bloqueo</strong> cada vez que ocurre. Es un ciclo vicioso. Cuando el flujo se restaure, la ansiedad se rompe automáticamente.')">
+        Frecuentemente, me preocupa antes de cada situación íntima <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q4','siempre','q5',4,'Cuando el problema ocupa la mente todo el día, el estrés <strong>por sí solo</strong> ya está creando más bloqueo. Por eso en tu caso vamos a priorizar el ingrediente que actúa sobre el sistema nervioso vascular primero.')">
+        Todo el tiempo, afecta cómo me siento conmigo mismo cada día <span class="chevron">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="screen" id="screen-q5">
+    <h2 class="question-text">¿Qué intentaste antes para resolver esto?</h2>
+    <p class="question-subtitle">Importante: esto nos permite excluir lo que ya no te funcionó y calibrar solo lo que sí puede funcionar para tu caso.</p>
+    <div class="answer-list">
+      <button class="answer-btn" onclick="selectThenInsight(this,'q5','nada')">
+        Nada todavía, es la primera vez que busco una solución <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectThenInsight(this,'q5','viagra')">
+        Viagra, Cialis u otras pastillas, pero funcionaron poco o dejaron de funcionar <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectThenInsight(this,'q5','suplementos')">
+        Suplementos naturales, probé varios sin resultado consistente <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectThenInsight(this,'q5','medicos')">
+        Médicos o tratamientos formales, sin resultados duraderos <span class="chevron">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- INSIGHT -->
+  <div class="screen insight-screen" id="screen-insight">
+    <h2 class="insight-headline">Lo que Viagra, los suplementos<br>y todo lo demás tienen en común:</h2>
+    <p class="insight-highlight">Ninguno toca las placas cristalizadas.<br>Y sin disolver las placas, ninguno puede funcionar.</p>
+    <div class="insight-card">
+      <p>Todos los tratamientos convencionales atacan el síntoma, la falta de flujo en el momento.</p>
+      <p>Ninguno ataca la causa: <strong>la obstrucción acumulada durante años</strong> dentro de tus arterias.</p>
+      <p><em>Es como secar el piso mientras el grifo sigue abierto. Puedes secar todo el día. El problema no desaparece hasta que cierras el grifo.</em></p>
+      <p><strong>Las placas cristalizadas son el grifo abierto.<br>El protocolo es lo que lo cierra.</strong></p>
+    </div>
+    <div class="insight-conclusion">
+      <p>Por eso nada funcionó antes.<br>Y por eso esto sí va a funcionar.</p>
+      <div class="sub">Termina el análisis y recibe el protocolo calibrado exactamente para tu caso.</div>
+    </div>
+    <button class="btn-primary" onclick="goToScreen('q6',5)">CONTINUAR MI ANÁLISIS →</button>
+    <div class="intro-fine" style="margin-top:10px">🔒 Confidencial  ·  ⏱ Menos de 1 min  ·  ✓ Ya casi terminas</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="screen" id="screen-q6">
+    <h2 class="question-text">¿Cuándo fue la última vez que tu cuerpo respondió exactamente como querías?</h2>
+    <p class="question-subtitle">Esta información calibra la intensidad del primer ingrediente en tu protocolo.</p>
+    <div class="answer-list">
+      <button class="answer-btn" onclick="selectWithPopup(this,'q6','menos1a','q7',6,'Menos de un año significa que el tejido vascular aún tiene buena elasticidad. <strong>Tu respuesta al protocolo será rápida</strong>, probablemente desde la primera semana.')">
+        Hace menos de 1 año <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q6','1a3a','q7',6,'Entre uno y tres años indica que la respuesta vascular <strong>sigue siendo recuperable al 100%</strong>. El protocolo estándar de 21 días es suficiente para tu caso.')">
+        Entre 1 y 3 años <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q6','3a5a','q7',6,'Este rango requiere el protocolo completo de 30 días. Pero los resultados son igualmente sólidos, centenares de pacientes en este rango notaron diferencia en la segunda semana.')">
+        Entre 3 y 5 años <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q6','mas5a','q7',6,'Más de 5 años es el caso más avanzado, y también el que más agradece el protocolo, porque <strong>nunca antes tuvo la herramienta correcta</strong>. Vamos a priorizarte.')">
+        Hace más de 5 años <span class="chevron">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="screen" id="screen-q7">
+    <h2 class="question-text">Una pregunta directa: ¿tu pareja sabe que estás buscando una solución?</h2>
+    <p class="question-subtitle">Esto nos ayuda a entender el nivel de presión externa que estás manejando.</p>
+    <div class="answer-list">
+      <button class="answer-btn" onclick="selectWithPopup(this,'q7','si-apoya','q8',7,'Tenerte a ti y a ella en la misma página es un factor que <strong>acelera la recuperación</strong>. El apoyo emocional baja el cortisol y mejora la respuesta vascular.')">
+        Sí, lo hablamos y ella me apoya <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q7','si-tenso','q8',7,'Entiendo perfectamente. Esa tensión en la pareja <strong>aumenta el cortisol</strong>, que a su vez reduce el flujo. Los resultados visibles del protocolo suelen ser lo que rompe ese ciclo.')">
+        Sí, lo sabe pero es un tema tenso entre nosotros <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q7','no-juzgue','q8',7,'Es completamente normal guardar esto para uno mismo. <strong>Este proceso es 100% tuyo y confidencial</strong>. Muchos pacientes prefieren actuar primero y hablar después con resultados en mano.')">
+        No, no quiero preocuparla o que me juzgue <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q7','sin-pareja','q8',7,'Prepararse ahora es exactamente lo correcto. Cuando llegue el momento, <strong>tu cuerpo va a responder como debe</strong>, sin sorpresas ni vergüenzas.')">
+        No tengo pareja actualmente, pero quiero estar preparado <span class="chevron">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="screen" id="screen-q8">
+    <h2 class="question-text">¿Cuál es tu edad?</h2>
+    <p class="question-subtitle">La edad determina qué fase de cristalización vascular es más probable en tu caso y la potencia exacta de cada ingrediente.</p>
+    <div class="answer-list">
+      <button class="answer-btn" onclick="selectWithPopup(this,'q8','25-35','q9',8,'A tu edad el problema es casi siempre de <strong>inflamación vascular temprana</strong>, no de desgaste. El primer ingrediente del protocolo actúa directamente sobre eso.')">
+        25-35 años <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q8','36-50','q9',8,'Entre los 36 y 50 es el rango donde más casos veo. La combinación de estrés, alimentación y acumulación vascular <strong>llega a su punto crítico</strong>. El protocolo completo es ideal para ti.')">
+        36-50 años <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q8','51-65','q9',8,'A partir de los 51, la testosterona empieza a reducirse pero <strong>el flujo puede corregirse independientemente</strong>. El tercer ingrediente es clave para este rango de edad, actúa sobre el endotelio arterial.')">
+        51-65 años <span class="chevron">›</span>
+      </button>
+      <button class="answer-btn" onclick="selectWithPopup(this,'q8','66+','q9',8,'Tengo pacientes de más de 70 años que recuperaron su función completamente. <strong>La edad no es el límite</strong>, la obstrucción arterial sí se puede revertir a cualquier edad con las proporciones correctas.')">
+        66+ años <span class="chevron">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q9 — slider peso -->
+  <div class="screen" id="screen-q9">
+    <h2 class="question-text">¿Cuánto pesas?</h2>
+    <p class="question-subtitle">La proporción exacta del primer ingrediente se calcula directamente con tu peso.</p>
+    <div class="slider-value"><span id="pesoVal">70</span> <span>kg</span></div>
+    <div class="slider-controls">
+      <button class="slider-btn" onclick="adjustSlider('peso',-1)">−</button>
+      <input type="range" id="pesoSlider" min="40" max="160" value="70" oninput="updateSlider('peso')" style="--pct: 25%;">
+      <button class="slider-btn" onclick="adjustSlider('peso',1)">+</button>
+    </div>
+    <p class="slider-hint">Desliza o usa los botones para ajustar</p>
+    <p class="slider-note">Con esto calcularemos la cantidad exacta de ingredientes para tu cuerpo.</p>
+    <div class="continuar-wrap">
+      <button class="btn-continuar enabled" onclick="goToScreen('q10',9)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q10 — slider estatura -->
+  <div class="screen" id="screen-q10">
+    <h2 class="question-text">¿Y cuál es tu estatura?</h2>
+    <p class="question-subtitle">Con tu peso y estatura calculamos tu índice de masa corporal vascular , el factor final que determina el timing exacto de activación entre el segundo y el tercer ingrediente.</p>
+    <div class="slider-value"><span id="estaturaVal">155</span> <span>cm</span></div>
+    <div class="slider-controls">
+      <button class="slider-btn" onclick="adjustSlider('estatura',-1)">−</button>
+      <input type="range" id="estaturaSlider" min="140" max="220" value="155" oninput="updateSlider('estatura')" style="--pct: 18.75%;">
+      <button class="slider-btn" onclick="adjustSlider('estatura',1)">+</button>
+    </div>
+    <p class="slider-hint">Desliza o usa los botones para ajustar</p>
+    <p class="slider-note">Con esto calcularemos la cantidad exacta de ingredientes para tu cuerpo.</p>
+    <div class="continuar-wrap">
+      <button class="btn-continuar btn-amber enabled" onclick="startLoading()">Continuar</button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="screen loading-screen" id="screen-loading">
+    <h2 class="loading-headline">Procesando Análisis Clínico...</h2>
+    <div class="loading-bar-wrap">
+      <div class="loading-bar-fill" id="loadingBar"></div>
+    </div>
+    <ul class="loading-steps">
+      <li class="loading-step" id="lstep1"><span class="step-icon">🔍</span> Analizando tu historial de síntomas y tiempo de evolución…</li>
+      <li class="loading-step" id="lstep2"><span class="step-icon">🧬</span> Calculando nivel de cristalización vascular acumulada…</li>
+      <li class="loading-step" id="lstep3"><span class="step-icon">⚗️</span> Calibrando proporciones del Ingrediente 1 para tu fase…</li>
+      <li class="loading-step" id="lstep4"><span class="step-icon">⚖️</span> Ajustando timing para tu índice de masa corporal vascular…</li>
+      <li class="loading-step" id="lstep5"><span class="step-icon">✅</span> Protocolo personalizado listo.</li>
+    </ul>
+  </div>
+
+</main>
+
+<script>
+  // ─── STATE ───────────────────────────────────────────────
+  const answers = {};
+  let currentScreen = 'intro';
+  let historyStack = [];
+  let pendingNext = null; // { nextId, qNum }
+
+  const TOTAL_Q = 10;
+  const screenQ = {
+    q1:1, q2:2, q3:3, q4:4, q5:5,
+    insight:null, q6:6, q7:7, q8:8, q9:9, q10:10, loading:null
+  };
+
+  // ─── NAVIGATION ──────────────────────────────────────────
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + id).classList.add('active');
+    currentScreen = id;
+    updateHeader(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateHeader(id) {
+    const qNum = screenQ[id];
+    const prog = document.getElementById('headerProgress');
+    const fill = document.getElementById('progressFill');
+    const back = document.getElementById('backBtn');
+
+    if (id === 'intro' || id === 'loading') {
+      prog.textContent = '';
+      fill.style.width = id === 'loading' ? '100%' : '0%';
+      back.classList.remove('visible');
+      return;
+    }
+    back.classList.add('visible');
+    if (qNum !== null) {
+      prog.textContent = qNum + '/' + TOTAL_Q;
+      fill.style.width = Math.round((qNum / TOTAL_Q) * 100) + '%';
+    } else {
+      prog.textContent = '';
+      fill.style.width = '50%';
+    }
+  }
+
+  function goBack() {
+    if (historyStack.length > 0) showScreen(historyStack.pop());
+  }
+
+  function push() { historyStack.push(currentScreen); }
+
+  function startQuiz() { push(); showScreen('q1'); }
+
+  function goToScreen(id) { push(); showScreen(id); }
+
+  // ─── MULTI SELECT ─────────────────────────────────────────
+  function toggleMulti(btn, qId) {
+    btn.classList.toggle('selected');
+    const any = document.querySelectorAll('#screen-' + qId + ' .multi-answer-btn.selected').length > 0;
+    const cont = document.getElementById(qId + '-continuar');
+    cont.classList.toggle('enabled', any);
+  }
+
+  function nextFromMulti(qId, nextId, qNum) {
+    const cont = document.getElementById(qId + '-continuar');
+    if (!cont.classList.contains('enabled')) return;
+    answers[qId] = [...document.querySelectorAll('#screen-' + qId + ' .multi-answer-btn.selected')].map(b => b.dataset.val);
+    push(); showScreen(nextId);
+  }
+
+  // ─── SINGLE SELECT WITH DR POPUP ─────────────────────────
+  function selectWithPopup(btn, qId, val, nextId, qNum, message) {
+    // Mark selected visually
+    btn.closest('.answer-list').querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    answers[qId] = val;
+    pendingNext = { nextId, qNum };
+    openPopup(message);
+  }
+
+  function selectThenInsight(btn, qId, val) {
+    btn.closest('.answer-list').querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    answers[qId] = val;
+    pendingNext = { nextId: 'insight', qNum: 5 };
+    // Q5 goes directly to insight without popup
+    push(); showScreen('insight');
+  }
+
+  // ─── DR POPUP LOGIC ───────────────────────────────────────
+  function openPopup(message) {
+    document.getElementById('drPopupMessage').innerHTML = message;
+    document.getElementById('drOverlay').classList.add('show');
+  }
+
+  function closePopup() {
+    document.getElementById('drOverlay').classList.remove('show');
+  }
+
+  let _popupLocked = false;
+  function confirmPopup() {
+    if (_popupLocked) return;
+    _popupLocked = true;
+    closePopup();
+    const next = pendingNext;
+    pendingNext = null;
+    setTimeout(() => {
+      _popupLocked = false;
+      if (next) { push(); showScreen(next.nextId); }
+    }, 320);
+  }
+
+  // ─── SLIDERS ──────────────────────────────────────────────
+  function updateSlider(name) {
+    const s = document.getElementById(name + 'Slider');
+    const v = parseInt(s.value);
+    document.getElementById(name + 'Val').textContent = v;
+    const pct = ((v - s.min) / (s.max - s.min)) * 100;
+    s.style.setProperty('--pct', pct + '%');
+  }
+  function adjustSlider(name, d) {
+    const s = document.getElementById(name + 'Slider');
+    s.value = Math.min(s.max, Math.max(s.min, +s.value + d));
+    updateSlider(name);
+  }
+  updateSlider('peso');
+  updateSlider('estatura');
+
+  // ─── LOADING ──────────────────────────────────────────────
+  function startLoading() {
+    push(); showScreen('loading');
+    document.getElementById('backBtn').classList.remove('visible');
+    const bar = document.getElementById('loadingBar');
+    [1,2,3,4,5].forEach((s, i) => {
+      setTimeout(() => {
+        document.getElementById('lstep' + s).classList.add('active');
+        bar.style.width = (20 * (i + 1)) + '%';
+      }, i * 1200);
+    });
+    setTimeout(() => { window.location.href = 'vsl/'; }, 7000);
+  }
+
+  updateHeader('intro');
+</script>
+
+
+</body></html>

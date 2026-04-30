@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Carlos Jaramillo – Tu Diagnóstico Personalizado</title>
+  <meta name="description" content="Mira lo que el Doctor tiene que decir sobre tu diagnóstico y el Protocolo Bicarbonato.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1a7a5e;
+      --green-light: #22a876;
+      --amber: #f0a800;
+      --text-dark: #1a2332;
+      --text-mid: #4a5568;
+      --text-light: #718096;
+      --bg: #eef1f5;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      object-fit: cover;
+    }
+    .topbar-name { font-size: 14px; font-weight: 700; }
+    .topbar-sub  { font-size: 12px; color: var(--text-light); }
+    .topbar-verified { color: var(--green); font-size: 13px; margin-left: 4px; }
+
+    /* ── MAIN ── */
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 28px 16px 60px;
+    }
+
+    /* ── HEADLINE ── */
+    .vsl-headline {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.28;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .vsl-subline {
+      font-size: 15px;
+      color: var(--text-mid);
+      text-align: center;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    /* VSL player wrapper */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto 10px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .video-hint {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 6px;
+    }
+
+    /* ── VIEWERS BADGE ── */
+    .viewers-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-mid);
+      margin-bottom: 24px;
+    }
+    .live-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #e53e3e;
+      animation: pulse 1.4s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+
+    /* ── COMMENTS SECTION ── */
+    .comments-section {}
+    .comments-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .comment-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      animation: fadeInUp 0.5s ease both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .comment-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+    .comment-name { font-size: 14px; font-weight: 700; }
+    .comment-time { font-size: 12px; color: var(--text-light); }
+    .comment-stars { color: #f59e0b; font-size: 13px; }
+    .comment-text {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+    .comment-text strong { color: var(--green); }
+
+    @media (max-width: 480px) {
+      .vsl-headline { font-size: 21px; }
+      .video-wrapper { max-width: 100%; }
+    }
+  </style>
+<script src="js/player.js" async=""></script></head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <img class="topbar-avatar" src="images/dr-carlos.png" alt="Dr. Carlos Jaramillo">
+  <div>
+    <div class="topbar-name">Dr. Carlos Jaramillo <span class="topbar-verified">✓</span></div>
+    <div class="topbar-sub">Tu diagnóstico personalizado está listo</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- HEADLINE -->
+  <h1 class="vsl-headline">Mira lo que el Doctor tiene que decir sobre tu diagnóstico</h1>
+  <p class="vsl-subline">El Dr. Carlos analizó tus respuestas y grabó este mensaje específicamente para tu caso</p>
+
+  <!-- VIDEO -->
+  <div class="video-wrapper" id="videoWrap">
+    <vturb-smartplayer id="vid-69eaf7413ddf72965956d264" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+    <script type="text/javascript">
+      var s=document.createElement("script");
+      s.src="https://scripts.converteai.net/05c6bac6-06bd-4a85-989c-7148cce2a23f/players/69eaf7413ddf72965956d264/v4/player.js";
+      s.async=!0;
+      document.head.appendChild(s);
+    </script>
+  </div>
+  <p class="video-hint">🔒 Vídeo privado · Solo para tu diagnóstico</p>
+
+  <!-- VIEWERS -->
+  <div class="viewers-badge">
+    <div class="live-dot"></div>
+    <span id="viewersCount">1.847</span> personas viendo ahora
+  </div>
+
+  <!-- COMMENTS -->
+  <div class="comments-section">
+    <div class="comments-label">Comentarios recientes</div>
+
+    <div class="comment-card" style="animation-delay: 0.1s; animation-play-state: running;">
+      <div class="comment-header">
+        <img class="comment-avatar" src="images/32.jpg" alt="António García">
+        <div>
+          <div class="comment-name">António García</div>
+          <div class="comment-time">hace 3 minutos · <span class="comment-stars">★★★★★</span></div>
+        </div>
+      </div>
+      <p class="comment-text">Honestamente pensé que esto era una estafa... <strong>¡esta cosa realmente funciona!</strong> En menos de 1 semana me convertí en un toro. Mi esposa no puede creerlo 😂</p>
+    </div>
+
+    <div class="comment-card" style="animation-delay: 0.2s; animation-play-state: running;">
+      <div class="comment-header">
+        <img class="comment-avatar" src="images/45.jpg" alt="Manuel Rodriguez">
+        <div>
+          <div class="comment-name">Manuel Rodriguez</div>
+          <div class="comment-time">hace 11 minutos · <span class="comment-stars">★★★★★</span></div>
+        </div>
+      </div>
+      <p class="comment-text">Era escéptico, pero después de dos semanas <strong>la diferencia es increíble</strong>. Ya no tengo que preocuparme más por eso. Gracias Dr. Carlos.</p>
+    </div>
+
+    <div class="comment-card" style="animation-delay: 0.3s; animation-play-state: running;">
+      <div class="comment-header">
+        <img class="comment-avatar" src="images/67.jpg" alt="José González">
+        <div>
+          <div class="comment-name">José González</div>
+          <div class="comment-time">hace 18 minutos · <span class="comment-stars">★★★★★</span></div>
+        </div>
+      </div>
+      <p class="comment-text">No más ansiedad cuando llega el momento de actuar. <strong>Recuperé la confianza que no tenía hace años.</strong> El Dr. lo explica todo perfectamente en el video.</p>
+    </div>
+
+    <div class="comment-card" style="animation-delay: 0.4s; animation-play-state: running;">
+      <div class="comment-header">
+        <img class="comment-avatar" src="images/22.jpg" alt="Francisco Fernandez">
+        <div>
+          <div class="comment-name">Francisco Fernandez</div>
+          <div class="comment-time">hace 25 minutos · <span class="comment-stars">★★★★★</span></div>
+        </div>
+      </div>
+      <p class="comment-text">Mi tamaño y resistencia ahora están en otro nivel. <strong>Ojalá hubiera encontrado esto antes.</strong> El protocolo del bicarbonato parece una locura pero es real.</p>
+    </div>
+
+    <div class="comment-card" style="animation-delay: 0.5s; animation-play-state: running;">
+      <div class="comment-header">
+        <img class="comment-avatar" src="images/15.jpg" alt="Carlos Mendoza">
+        <div>
+          <div class="comment-name">Carlos Mendoza</div>
+          <div class="comment-time">hace 34 minutos · <span class="comment-stars">★★★★★</span></div>
+        </div>
+      </div>
+      <p class="comment-text">Llevo 5 años con este problema. Probé Viagra, suplementos, de todo. <strong>Nada funcionó hasta esto.</strong> La explicación de las placas cristalizadas lo cambia todo.</p>
+    </div>
+  </div>
+
+
+</div>
+
+<script>
+  // ── ANIMACAO DOS COMENTARIOS ──────────────────────────────
+  const cards = document.querySelectorAll('.comment-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.style.animationPlayState = 'running';
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(c => {
+    c.style.animationPlayState = 'paused';
+    observer.observe(c);
+  });
+
+  // ── CONTADOR DE VIEWERS ───────────────────────────────────
+  function animateViewers() {
+    const el = document.getElementById('viewersCount');
+    let base = 1847;
+    setInterval(() => {
+      base += Math.floor(Math.random() * 5) - 2;
+      base = Math.max(1800, Math.min(2100, base));
+      el.textContent = base.toLocaleString('es-ES');
+    }, 3000);
+  }
+  animateViewers();
+
+  // ── BACK REDIRECT ──────────────────────────────────────────
+  (function() {
+    if (window.history && window.history.pushState) {
+      window.history.pushState('forward', null, '');
+      window.addEventListener('popstate', function() {
+        window.location.href = '../backredirect/index.html';
+      });
+    }
+  })();
+</script>
+
+
+</body></html>
